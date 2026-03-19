@@ -1,17 +1,113 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* レイアウト崩れ防止のプロ用設定 */
 }
 
 html {
     background-color: #050507;
+    color: #FFFFFF;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
-.header {
-    display: flex;
-}
-
-.header_img {
-    max-width: 480px;
+.main-gallery {
+    /* セクション全体の設定 */
     width: 100%;
+    overflow: hidden; /* 画像のはみ出しをカット */
+}
+
+.main-gallery__container {
+    display: flex;
+    justify-content: center;
+}
+
+.main-gallery__img {
+    width: clamp(375px, 33.33vw, 480px);
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* 重なり順のデフォルト設定（1200px未満の時：真ん中が上） */
+.main-gallery__img--middle {
+    z-index: 2;
+}
+
+.main-gallery__img--left,
+.main-gallery__img--right {
+    z-index: 1;
+}
+
+/* 重なり計算（1200px未満の時に潜り込む） */
+.main-gallery__img--left {
+    margin-right: calc((100vw - 1440px) / 2);
+}
+
+.main-gallery__img--right {
+    margin-left: calc((100vw - 1440px) / 2);
+}
+
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.hero__title {
+    font-size: clamp(48px,6.94vw,100px);
+    margin-block: 100px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+}
+
+.hero__info-block {
+    font-weight: 300;
+}
+
+.info__label {
+    font-size: 60px;
+    letter-spacing: 0.03em;
+    text-decoration: underline;
+    margin-bottom: 45px;
+    font-weight: 300;
+    text-decoration-thickness: 1px;
+    line-height: 1.25;
+    text-underline-offset: 14px;
+}
+
+.info__datetime--en {
+    margin-bottom: 20px;
+}
+
+.info__date {
+    font-size: clamp(16px,1.67vw,24px);
+}
+
+.info__time {
+    font-size: clamp(16px,1.25vw,18px);
+}
+
+.info__location {
+    font-size: clamp(32px,2.78vw,40px);
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.info__datetime--ja {
+    font-size: clamp(16px,1.25vw,18px);
+}
+
+
+/* 768px以下：中央1枚のみ */
+@media (max-width: 768px) {
+    .main-gallery__img--left,
+    .main-gallery__img--right {
+        display: none;
+    }
+    .main-gallery__img--middle {
+        width: 100%;
+        max-width: 480px;
+    }
 }
