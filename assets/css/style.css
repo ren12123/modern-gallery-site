@@ -19,12 +19,16 @@ html {
 .main-gallery__container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    gap: 5vw;
 }
 
 .main-gallery__img {
-    width: clamp(375px, 33.33vw, 480px);
-    flex-shrink: 0;
-    position: relative;
+    height: 80vh;          /* 高さを少し抑えることで「縦長の棒」を防ぐ */
+    object-fit: cover;
+    flex-shrink: 1;        /* 画面に合わせて縮むようにする */
 }
 
 /* 重なり順のデフォルト設定（1200px未満の時：真ん中が上） */
@@ -99,6 +103,42 @@ html {
     font-size: clamp(16px,1.25vw,18px);
 }
 
+.gallery {
+    margin-top: clamp(80px,9.72vw,140px);
+}
+
+.gallery__content {
+    display: flex;
+    flex-direction: column;
+    max-width: 740px;
+    width: 100%;
+    margin: 0 auto;
+    gap: clamp(30px,4.17vw,60px);
+    
+}
+
+.gallery__content img {
+    width: clamp(315px,24.65vw,355px);
+}
+
+.picture-left {
+    align-self: flex-start;
+}
+
+.picture-right {
+    align-self: flex-end;
+}
+
+.gallery_title {
+    font-size: 60px;
+    font-weight: 300;
+    text-decoration: underline;
+    text-underline-offset: 14px;
+    text-align: center;
+    margin-bottom: 45px;
+    text-decoration-thickness: 1px;
+}
+
 
 /* 768px以下：中央1枚のみ */
 @media (max-width: 768px) {
@@ -109,5 +149,15 @@ html {
     .main-gallery__img--middle {
         width: 100%;
         max-width: 480px;
+    }
+
+    .gallery__content {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .picture-left,
+    .picture-right {
+        align-self: center;
     }
 }
