@@ -58,6 +58,11 @@ html {
     text-align: center;
 }
 
+.fadeup {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s, transform 1s;
+}
 
 .hero__title {
     font-size: clamp(48px,6.94vw,100px);
@@ -139,6 +144,14 @@ html {
     text-decoration-thickness: 1px;
 }
 
+.is-animated {
+    opacity: 1 !important;        /* 透明を解除 */
+    transform: translateY(0) !important; /* 下から上に位置を戻す */
+}
+
+.gallery__content .fadeup.is-animated {
+    transition-delay: 0.5s; /* ここで時間をずらす */
+}
 
 /* 768px以下：中央1枚のみ */
 @media (max-width: 768px) {

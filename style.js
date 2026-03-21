@@ -45,4 +45,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    const fadeElements = document.querySelectorAll('.fadeup')
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-animated');
+            }
+        });
+    }, {
+        threshold: 0.4
+    });
+
+    fadeElements.forEach((el) => {
+        observer.observe(el)
+    });
 });
