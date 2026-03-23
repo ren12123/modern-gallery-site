@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* レイアウト崩れ防止のプロ用設定 */
+    box-sizing: border-box;
 }
 
 html {
@@ -11,14 +11,13 @@ html {
 }
 
 a {
-  color: inherit;        /* 親要素の色を使う */
-  text-decoration: none; /* 下線を消す */
+    color: inherit;
+    text-decoration: none;
 }
 
 .main-gallery {
-    /* セクション全体の設定 */
     width: 100%;
-    overflow: hidden; /* 画像のはみ出しをカット */
+    overflow: hidden;
 }
 
 .main-gallery__container {
@@ -31,12 +30,11 @@ a {
 }
 
 .main-gallery__img {
-    height: 80vh;          /* 高さを少し抑えることで「縦長の棒」を防ぐ */
+    height: 80vh;
     object-fit: cover;
-    flex-shrink: 1;        /* 画面に合わせて縮むようにする */
+    flex-shrink: 1;
 }
 
-/* 重なり順のデフォルト設定（1200px未満の時：真ん中が上） */
 .main-gallery__img--middle {
     z-index: 2;
 }
@@ -46,7 +44,6 @@ a {
     z-index: 1;
 }
 
-/* 重なり計算（1200px未満の時に潜り込む） */
 .main-gallery__img--left {
     margin-right: calc((100vw - 1440px) / 2);
 }
@@ -63,25 +60,27 @@ a {
     text-align: center;
 }
 
+/* フェードアップ初期状態 */
 .fadeup {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 1s, transform 1s;
 }
 
+.fadeup.is-animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .hero__title {
-    font-size: clamp(48px,6.94vw,100px);
+    font-size: clamp(48px, 6.94vw, 100px);
     margin-block: 100px;
     font-weight: 300;
     letter-spacing: 0.03em;
 }
 
-.hero__info-block {
-    font-weight: 300;
-}
-
 .label {
-    font-size: clamp(32px,4.17vw,60px);
+    font-size: clamp(32px, 4.17vw, 60px);
     letter-spacing: 0.03em;
     text-decoration: underline;
     margin-bottom: 45px;
@@ -97,81 +96,91 @@ a {
 }
 
 .info__date {
-    font-size: clamp(16px,1.67vw,24px);
+    font-size: clamp(16px, 1.67vw, 24px);
 }
 
 .info__time {
-    font-size: clamp(16px,1.25vw,18px);
+    font-size: clamp(16px, 1.25vw, 18px);
 }
 
 .info__location {
-    font-size: clamp(32px,2.78vw,40px);
+    font-size: clamp(32px, 2.78vw, 40px);
     margin-bottom: 20px;
     font-weight: 400;
 }
 
-.info__datetime--ja {
-    font-size: clamp(16px,1.25vw,18px);
-}
-
 .gallery {
-    margin-top: clamp(80px,9.72vw,140px);
+    margin-top: clamp(80px, 9.72vw, 140px);
 }
 
 .gallery__content {
     display: flex;
     flex-direction: column;
-    width: clamp(315px,51.39vw,740px);
+    width: clamp(315px, 51.39vw, 740px);
     margin: 0 auto;
-    gap: clamp(30px,4.17vw,60px);
-    
+    gap: clamp(30px, 4.17vw, 60px);
 }
 
 .gallery__content img {
-    width: clamp(315px,24.65vw,355px);
+    width: clamp(315px, 24.65vw, 355px);
 }
 
-.picture-left {
-    align-self: flex-start;
+/* 画像5-6のフェードアウト設定 */
+.in-out {
+    transition: opacity 1.5s ease-out;
 }
 
-.picture-right {
-    align-self: flex-end;
+.in-out.is-hidden {
+    opacity: 0 !important;
 }
 
-.is-animated {
-    opacity: 1 !important;        /* 透明を解除 */
-    transform: translateY(0) !important; /* 下から上に位置を戻す */
+.picture-left { align-self: flex-start; }
+.picture-right { align-self: flex-end; }
+
+/* Accessセクション */
+.access {
+    position: relative;
+    overflow: visible;
+    padding-block: clamp(280px, 33.4vw, 481px);
+    background-color: transparent;
 }
 
-.acsess {
-    background-image: url('../../imgs/bg\ 1.png');
-    padding-block: clamp(280px,33.4vw,481px);
-    background-size: cover;      /* 隙間なく全体を覆う（これが最重要） */
-    background-position: center; /* 中央を基準にする */
-    background-repeat: no-repeat; /* 1枚だけ表示する */
-    /*background: url('../../imgs/bg 1.png') center / cover no-repeat;一行でもあらわせれる*/
+.access::before {
+    content: '';
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-image: url('../../imgs/bg 1.png');
+    height: 100vh;
+    width: 100%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 1.5s ease-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.acsess__content {
-    
+/* 背景が表示される状態 */
+.access.is-bg-active::before {
+    opacity: 1;
+}
+
+.access__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
 }
 
-.acsess_hradline {
-    text-align: center;
-}
-
-.acsess_sideline {
+.access__sideline {
     font-size: 28px;
     font-weight: 400;
     margin-bottom: 20px;
 }
 
-.info__acsess--jp {
+.info__access--jp {
     font-size: 16px;
     margin-bottom: 20px;
 }
@@ -181,8 +190,15 @@ a {
     margin-bottom: 30px;
 }
 
+.map-button {
+    display: inline-block;
+    padding: 15px 82px;
+    background-color: #FFFFFF;
+    color: #000;
+    align-self: center;
+    margin-top: 30px;
+}
 
-/* 768px以下：中央1枚のみ */
 @media (max-width: 768px) {
     .main-gallery__img--left,
     .main-gallery__img--right {
@@ -192,12 +208,10 @@ a {
         width: 100%;
         max-width: 480px;
     }
-
     .gallery__content {
         align-items: center;
         justify-content: center;
     }
-
     .picture-left,
     .picture-right {
         align-self: center;
