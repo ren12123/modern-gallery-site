@@ -191,6 +191,13 @@ a {
     margin-bottom: 30px;
 }
 
+.contact__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .map-button {
     display: inline-block;
     padding: 15px 82px;
@@ -204,15 +211,51 @@ a {
 }
 
 .ques{
-    display: inline-block;
-    padding: 15px 82px;
+    display: flex;
+    padding-block: 30px;
+    padding-inline: clamp(61.5px,7.22vw,104px);
     background-color: transparent;
     color: #FFFFFF;
     align-self: center;
-    margin-top: 30px;
+    margin-bottom: 20px;
     font-size: 16px;
+    line-height: 1.25;
     font-weight: 300;
     border: 1px solid #FFFFFF;
+    cursor: pointer;
+    
+    position: relative;
+    overflow: relative;
+}
+
+
+.ques::after {
+    content: '';
+    position: absolute;
+    right: -80px;
+    bottom: 32.08px;
+
+    border-bottom: 1px solid;
+    width: 120px;
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+.ques::before {
+    content: '';
+    position: absolute;
+    right: -80.5px;
+    bottom: 34px;
+    
+    width: 10px;
+    border-bottom: 1px solid #FFFFFF;
+    transform: rotate(25deg);
+}
+
+
+.q-other {
+    padding-inline: clamp(77.5px,8.33vw,120px);
+    margin-bottom: 200px;
 }
 
 @media (max-width: 768px) {
