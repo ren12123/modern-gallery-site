@@ -228,6 +228,10 @@ a {
     overflow: relative;
 }
 
+.ques:hover {
+    border: 1px solid #7c7474;
+    transition: 3.0 ease color;
+}
 
 .ques::after {
     content: '';
@@ -237,7 +241,7 @@ a {
 
     border-bottom: 1px solid;
     width: 120px;
-    color: #FFFFFF;
+    color: #7c7474;
     background-color: transparent;
 }
 
@@ -252,10 +256,52 @@ a {
     transform: rotate(25deg);
 }
 
+.ques::after,
+.ques::before {
+    /* 変化させるプロパティ（rightとcolor）に時間を設定 */
+    transition: right 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.ques:hover::after {
+    right: -90px; /* -80px から 10px 右へ（数値が小さくなる） */
+    border-color: #7c7474; /* 黒寄りの灰色 */
+}
+
+.ques:hover::before {
+    right: -90.5px; /* -80.5px から 10px 右へ */
+    border-color: #7c7474; /* 黒寄りの灰色 */
+}
 
 .q-other {
     padding-inline: clamp(77.5px,8.33vw,120px);
     margin-bottom: 200px;
+}
+
+.footer {
+    border-top: 1px solid;
+    color: #FFFFFF;
+    padding-inline: 30px;
+    padding-block: clamp(60px,5.56vw,80px);
+}
+
+.footer__content {
+    display: flex;
+    font-size: clamp(12px,1.11vw,16px);
+    line-height: 1.25;
+    font-weight: 300;
+    justify-content: space-between;
+}
+
+.sns {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    gap: 30px;
+    margin-top: 109px;
 }
 
 @media (max-width: 768px) {
@@ -274,5 +320,19 @@ a {
     .picture-left,
     .picture-right {
         align-self: center;
+    }
+
+    .ques::after,
+    .ques::before {
+        display: none;
+    }
+
+    .footer__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo {
+        margin-top: 30px;
     }
 }
