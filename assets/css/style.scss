@@ -1,0 +1,427 @@
+/* =============================================
+   1. Variables (変数)
+   ============================================= */
+$bg-color: #050507;
+$text-white: #FFFFFF;
+$accent-gray: #7c7474;
+$font-main: 'Source Sans Pro', sans-serif;
+
+/* =============================================
+   2. Mixins (共通パーツ)
+   ============================================= */
+@mixin label-style {
+    font-size: clamp(32px, 4.17vw, 60px);
+    letter-spacing: 0.03em;
+    text-decoration: underline;
+    margin-bottom: 45px;
+    font-weight: 300;
+    text-decoration-thickness: 1px;
+    line-height: 1.25;
+    text-underline-offset: 14px;
+    text-align: center;
+    display: block;
+}
+
+/* =============================================
+   3. Base & Reset
+   ============================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background-color: $bg-color;
+    color: $text-white;
+    font-family: $font-main;
+}
+
+/* =============================================
+   4. Header & Menu
+   ============================================= */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    pointer-events: none;
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background-color: rgba($bg-color, 0.95);
+        transition: height 0.5s ease-out;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    &.is-open::before {
+        height: 50vh;
+    }
+
+    &__content {
+        display: flex;
+        padding-left: 30px;
+        padding-right: 20px;
+        justify-content: space-between;
+        background: none;
+        width: 100%;
+        pointer-events: auto;
+    }
+
+    &__logo {
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        margin-top: 35px;
+        position: relative;
+        z-index: 100;
+    }
+
+    &__hamburger {
+        width: 42px;
+        height: 42px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin-top: 20px;
+        position: relative;
+        z-index: 100;
+    }
+}
+
+.hamburger {
+    span, &::before, &::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background-color: $text-white;
+        position: absolute;
+        left: 6px;
+        transition: all 0.3s;
+    }
+
+    &::before { top: 10px; }
+    span { top: 21px; margin-top: -0.5px; }
+    &::after { bottom: 10px; }
+
+    &.is-active {
+        span { background-color: transparent; }
+        &::before {
+            top: 21px;
+            transform: translateY(-50%) rotate(45deg);
+        }
+        &::after {
+            bottom: 21px;
+            transform: translateY(50%) rotate(-45deg);
+        }
+    }
+}
+
+.menu {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 90px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-120px);
+    transition: opacity 0.3s ease-out, transform 0.5s ease-out;
+    position: relative;
+    pointer-events: none;
+
+    &.is-active {
+        opacity: 1 !important;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    &__item {
+        font-size: 16px;
+        line-height: 1.25;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    &__link:hover { opacity: 0.7; }
+}
+
+/* =============================================
+   5. Main Gallery (解析を徹底した画像部分)
+   ============================================= */
+.main-gallery {
+    width: 100%;
+    overflow: hidden;
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        gap: 5vw;
+    }
+
+    &__img {
+        height: 80vh;
+        object-fit: cover;
+        flex-shrink: 1;
+
+        // Modifierの優先順位を元のCSSと完全に一致させる
+        &--middle { z-index: 2; }
+        &--left, &--right { z-index: 1; }
+        
+        &--left { 
+            margin-right: calc((100vw - 1440px) / 2); 
+        }
+        &--right { 
+            margin-left: calc((100vw - 1440px) / 2); 
+        }
+    }
+}
+
+/* =============================================
+   6. Hero & Side Nav
+   ============================================= */
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero__title {
+    font-size: clamp(48px, 6.94vw, 100px);
+    margin-block: 100px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+}
+
+// ミキシンを適用して一括管理
+.label, .info__label, .access__label {
+    @include label-style;
+}
+
+.info {
+    &__datetime--en { margin-bottom: 20px; }
+    &__date { font-size: clamp(16px, 1.67vw, 24px); }
+    &__time { font-size: clamp(16px, 1.25vw, 18px); }
+    &__location {
+        font-size: clamp(32px, 2.78vw, 40px);
+        margin-bottom: 20px;
+        font-weight: 400;
+    }
+}
+
+.side-nav {
+    position: fixed;
+    bottom: 200px;
+    right: -136.8px;
+    z-index: 1000;
+    display: flex;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    width: 320px;
+    height: 48px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: 1s ease-out;
+
+    &.is-activate { opacity: 1; }
+
+    &__link--top,
+    &__link--bottom {
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 300;
+        padding: 15px 30px;
+        border: 1px solid $text-white;
+        letter-spacing: 0.1em;
+    }
+
+    a + a { margin-left: -1px; }
+    &__link--top { padding-inline: 40px; }
+}
+
+/* =============================================
+   7. Gallery Section
+   ============================================= */
+.gallery {
+    margin-top: clamp(80px, 9.72vw, 140px);
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        width: clamp(315px, 51.39vw, 740px);
+        margin: 0 auto;
+        gap: clamp(30px, 4.17vw, 60px);
+    }
+
+    &__item {
+        width: clamp(315px, 24.65vw, 355px);
+        &--odd { align-self: flex-start; }
+        &--even { align-self: flex-end; }
+    }
+}
+
+/* =============================================
+   8. Access Section
+   ============================================= */
+.access {
+    position: relative;
+    padding-block: clamp(280px, 33.4vw, 481px);
+    background-color: transparent;
+
+    &::before {
+        content: '';
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-image: url('../../imgs/bg 1.png');
+        height: 100vh;
+        width: 100%;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 1s ease-out;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    &.is-bg-active::before { opacity: 1; }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-weight: 300;
+    }
+
+    &__title { font-size: 28px; font-weight: 400; margin-bottom: 20px; }
+    &__text, &__contact { font-size: 16px; margin-bottom: 20px; }
+    &__map-button { margin-top: 30px; align-self: center; }
+}
+
+.map-button {
+    display: inline-block;
+    padding: 15px 82px;
+    border: 1px solid $text-white;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+/* =============================================
+   9. Contact & Footer
+   ============================================= */
+.contact__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ques {
+    display: flex;
+    padding: 30px clamp(61.5px, 7.22vw, 104px);
+    background: transparent;
+    color: $text-white;
+    border: 1px solid $text-white;
+    margin-bottom: 20px;
+    cursor: pointer;
+    position: relative;
+    font-size: 16px;
+    font-weight: 300;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: -80px;
+        bottom: 32.08px;
+        border-bottom: 1px solid $accent-gray;
+        width: 120px;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        right: -80.5px;
+        bottom: 34px;
+        width: 10px;
+        border-bottom: 1px solid $text-white;
+        transform: rotate(25deg);
+    }
+}
+
+.q-other {
+    padding-inline: clamp(77.5px, 8.33vw, 120px);
+    margin-bottom: 200px;
+}
+
+.footer {
+    border-top: 1px solid $text-white;
+    padding: clamp(60px, 5.56vw, 80px) 30px;
+
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        font-size: clamp(12px, 1.11vw, 16px);
+        font-weight: 300;
+    }
+}
+
+.sns { display: flex; gap: 15px; margin-top: 30px; }
+.logo { display: flex; gap: 30px; margin-top: 109px; }
+
+/* =============================================
+   10. Animation & Responsive
+   ============================================= */
+.fadeup {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s, transform 1s;
+
+    &.is-animated { opacity: 1; transform: translateY(0); }
+}
+
+.in-out { 
+    transition: opacity 1s ease-out; 
+    &.is-hidden { opacity: 0 !important; }
+}
+
+@media (max-width: 768px) {
+    .main-gallery__img--left, .main-gallery__img--right { display: none; }
+    .gallery__list { align-items: center; }
+    .gallery__item--odd, .gallery__item--even { align-self: center; }
+    .ques::before, .ques::after { display: none; }
+    .footer__content { flex-direction: column; }
+    .logo { margin-top: 30px; }
+}
