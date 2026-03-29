@@ -1,0 +1,121 @@
+@use "../foundation/variables" as v;
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    pointer-events: none;
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background-color: rgba(5, 5, 7, 0.95);
+        transition: height 0.5s ease-out;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    &.is-open::before { height: 50vh; }
+
+    &__content {
+        display: flex;
+        padding-left: 30px;
+        padding-right: 20px;
+        justify-content: space-between;
+        background: none;
+        width: 100%;
+        pointer-events: auto;
+    }
+
+    &__logo {
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        margin-top: 35px;
+        position: relative;
+        z-index: 100;
+    }
+
+    &__hamburger {
+        width: 42px;
+        height: 42px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin-top: 20px;
+        position: relative;
+        z-index: 100;
+    }
+}
+
+.hamburger {
+    span, &::before, &::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background-color: v.$white;
+        position: absolute;
+        left: 6px;
+        transition: all v.$speed-base;
+    }
+
+    &::before { top: 10px; }
+    span { top: 21px; margin-top: -0.5px; }
+    &::after { bottom: 10px; }
+
+    &.is-active {
+        span { background-color: transparent; }
+        &::before {
+            top: 21px;
+            transform: translateY(-50%) rotate(45deg);
+        }
+        &::after {
+            bottom: 21px;
+            transform: translateY(50%) rotate(-45deg);
+        }
+    }
+}
+
+.menu {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 90px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-120px);
+    transition: opacity 0.3s ease-out, transform 0.5s ease-out;
+    position: relative;
+    pointer-events: none;
+
+    &.is-active {
+        opacity: 1 !important;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    &__item {
+        font-size: 16px;
+        line-height: 1.25;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    &__link:hover { opacity: 0.7; }
+}

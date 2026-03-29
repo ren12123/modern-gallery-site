@@ -1,0 +1,242 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background-color: #050507;
+  color: #FFFFFF;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  pointer-events: none;
+}
+.header::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: rgba(5, 5, 7, 0.95);
+  transition: height 0.5s ease-out;
+  z-index: -1;
+  pointer-events: none;
+}
+.header.is-open::before {
+  height: 50vh;
+}
+.header__content {
+  display: flex;
+  padding-left: 30px;
+  padding-right: 20px;
+  justify-content: space-between;
+  background: none;
+  width: 100%;
+  pointer-events: auto;
+}
+.header__logo {
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  margin-top: 35px;
+  position: relative;
+  z-index: 100;
+}
+.header__hamburger {
+  width: 42px;
+  height: 42px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 20px;
+  position: relative;
+  z-index: 100;
+}
+
+.hamburger span, .hamburger::before, .hamburger::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 1px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 6px;
+  transition: all 0.3s;
+}
+.hamburger::before {
+  top: 10px;
+}
+.hamburger span {
+  top: 21px;
+  margin-top: -0.5px;
+}
+.hamburger::after {
+  bottom: 10px;
+}
+.hamburger.is-active span {
+  background-color: transparent;
+}
+.hamburger.is-active::before {
+  top: 21px;
+  transform: translateY(-50%) rotate(45deg);
+}
+.hamburger.is-active::after {
+  bottom: 21px;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+.menu {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-120px);
+  transition: opacity 0.3s ease-out, transform 0.5s ease-out;
+  position: relative;
+  pointer-events: none;
+}
+.menu.is-active {
+  opacity: 1 !important;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.menu__item {
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 400;
+  text-align: center;
+}
+.menu__link:hover {
+  opacity: 0.7;
+}
+
+.main-gallery {
+  width: 100%;
+  overflow: hidden;
+}
+.main-gallery__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  gap: 5vw;
+}
+.main-gallery__img {
+  height: 80vh;
+  object-fit: cover;
+  flex-shrink: 1;
+}
+.main-gallery__img--middle {
+  z-index: 2;
+}
+.main-gallery__img--left, .main-gallery__img--right {
+  z-index: 1;
+}
+.main-gallery__img--left {
+  margin-right: calc((100vw - 1440px) / 2);
+}
+.main-gallery__img--right {
+  margin-left: calc((100vw - 1440px) / 2);
+}
+
+.gallery {
+  margin-top: clamp(80px, 9.72vw, 140px);
+}
+.gallery__list {
+  display: flex;
+  flex-direction: column;
+  width: clamp(315px, 51.39vw, 740px);
+  margin: 0 auto;
+  gap: clamp(30px, 4.17vw, 60px);
+}
+.gallery__item {
+  width: clamp(315px, 24.65vw, 355px);
+}
+.gallery__item--odd {
+  align-self: flex-start;
+}
+.gallery__item--even {
+  align-self: flex-end;
+}
+
+.hero__title {
+  font-size: clamp(48px, 6.94vw, 100px);
+  margin-block: 100px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+.label, .info__label, .access__label {
+  font-size: clamp(32px, 4.17vw, 60px);
+  letter-spacing: 0.03em;
+  text-decoration: underline;
+  margin-bottom: 45px;
+  font-weight: 300;
+  text-decoration-thickness: 1px;
+  line-height: 1.25;
+  text-underline-offset: 14px;
+  text-align: center;
+  display: block;
+}
+
+.access {
+  position: relative;
+  padding-block: clamp(280px, 33.4vw, 481px);
+}
+.access::before {
+  content: "";
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-image: url("../../imgs/bg 1.png");
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1s ease-out;
+  background-size: cover;
+  background-position: center;
+}
+.access.is-bg-active::before {
+  opacity: 1;
+}
+
+.map-button {
+  display: inline-block;
+  padding: 15px 82px;
+  border: 1px solid #FFFFFF;
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=style.css.map */

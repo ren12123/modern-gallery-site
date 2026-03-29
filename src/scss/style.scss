@@ -1,0 +1,13 @@
+// 1. Foundation (土台)
+@use "foundation/variables";
+@use "foundation/reset";
+
+// 2. Layout (共通枠)
+@use "layout/header";
+
+// 3. Object (各パーツ)
+@use "object/gallery";
+@use "object/component";
+
+// 4. Utility (アニメーションなど)
+// ※必要に応じて追加
